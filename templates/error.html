@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error {{ error_code }} - FreshScan</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        text-align: center;
+        color: white;
+      }
+
+      .error-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 25px;
+        padding: 50px;
+        max-width: 500px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .error-code {
+        font-size: 120px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        line-height: 1;
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      .error-message {
+        font-size: 20px;
+        margin-bottom: 30px;
+        opacity: 0.9;
+      }
+
+      .home-btn {
+        background: white;
+        color: #667eea;
+        padding: 15px 40px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .home-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-container">
+      <div class="error-code">{{ error_code }}</div>
+      <div class="error-message">{{ message }}</div>
+      <a href="/" class="home-btn">
+        <i class="fas fa-home"></i>
+        Back to Home
+      </a>
+    </div>
+  </body>
+</html>

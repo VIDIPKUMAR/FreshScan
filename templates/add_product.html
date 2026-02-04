@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Product - FreshScan</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 600px;
+        padding: 40px;
+        animation: slideUp 0.5s ease-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        color: #4361ee;
+        font-size: 28px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .header p {
+        color: #6c757d;
+        font-size: 14px;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #4361ee;
+        text-decoration: none;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #2d3436;
+        font-size: 14px;
+      }
+
+      .required::after {
+        content: " *";
+        color: #e71d36;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        font-size: 16px;
+        font-family: inherit;
+        transition: all 0.3s ease;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #4361ee;
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .date-hint {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+        color: white;
+        border: none;
+        padding: 16px 32px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(67, 97, 238, 0.3);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .message {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 600;
+        display: none;
+      }
+
+      .success {
+        background: rgba(46, 196, 182, 0.1);
+        color: #2ec4b6;
+        border: 1px solid rgba(46, 196, 182, 0.3);
+      }
+
+      .error {
+        background: rgba(231, 29, 54, 0.1);
+        color: #e71d36;
+        border: 1px solid rgba(231, 29, 54, 0.3);
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        .container {
+          padding: 30px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="/admin" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+        Back to Admin Panel
+      </a>
+
+      <div class="header">
+        <h1>
+          <i class="fas fa-plus-circle"></i>
+          Add New Product
+        </h1>
+        <p>Fill in the details to add a new product to the system</p>
+      </div>
+
+      <form id="addProductForm">
+        <div class="form-group">
+          <label for="product_name" class="required">Product Name</label>
+          <input
+            type="text"
+            id="product_name"
+            name="product_name"
+            placeholder="e.g., Milk, Bread, Yogurt"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="batch_id" class="required">Batch ID</label>
+          <input
+            type="text"
+            id="batch_id"
+            name="batch_id"
+            placeholder="e.g., MILK001, BREAD2024"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="category" class="required">Category</label>
+          <select id="category" name="category" required>
+            <option value="">Select a category</option>
+            {% for category in categories %}
+            <option value="{{ category[0] }}">
+              {{ category[1] }} {{ category[0] }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mfg_date" class="required">Manufacturing Date</label>
+            <input
+              type="date"
+              id="mfg_date"
+              name="mfg_date"
+              value="{{ today }}"
+              required
+            />
+            <div class="date-hint">
+              <i class="fas fa-calendar"></i>
+              Format: YYYY-MM-DD
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="expiry_date" class="required">Expiry Date</label>
+            <input
+              type="date"
+              id="expiry_date"
+              name="expiry_date"
+              value="{{ next_week }}"
+              required
+            />
+            <div class="date-hint">
+              <i class="fas fa-calendar-check"></i>
+              Test with different dates for demo
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="storage_instructions"
+            >Storage Instructions (Optional)</label
+          >
+          <textarea
+            id="storage_instructions"
+            name="storage_instructions"
+            placeholder="e.g., Keep refrigerated, Store in cool dry place..."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn">
+          <i class="fas fa-save"></i>
+          Add Product & Generate QR Code
+        </button>
+
+        <div id="message" class="message"></div>
+      </form>
+
+      <div
+        style="
+          margin-top: 30px;
+          padding: 20px;
+          background: #f8f9fa;
+          border-radius: 12px;
+        "
+      >
+        <h3
+          style="
+            color: #4361ee;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          "
+        >
+          <i class="fas fa-lightbulb"></i>
+          Demo Tips
+        </h3>
+        <ul style="color: #6c757d; font-size: 14px; line-height: 1.6">
+          <li>
+            For <strong style="color: #e71d36">Expired</strong> demo: Set expiry
+            date in the past
+          </li>
+          <li>
+            For <strong style="color: #ffc107">Near Expiry</strong> demo: Set
+            expiry date today or tomorrow
+          </li>
+          <li>
+            For <strong style="color: #28a745">Safe</strong> demo: Set expiry
+            date in the future
+          </li>
+          <li>After adding, go to Admin Panel and click "Generate All QR"</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("addProductForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const form = e.target;
+          const messageDiv = document.getElementById("message");
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const originalBtnText = submitBtn.innerHTML;
+
+          // Show loading state
+          submitBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Adding Product...';
+          submitBtn.disabled = true;
+          messageDiv.style.display = "none";
+
+          try {
+            const formData = new FormData(form);
+
+            const response = await fetch("/admin/add", {
+              method: "POST",
+              body: formData,
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              messageDiv.innerHTML = `
+                        <div class="success">
+                            <i class="fas fa-check-circle"></i>
+                            ✅ Product added successfully! ID: ${result.product_id}
+                            <br>
+                            <small>QR code has been generated. Redirecting to admin panel...</small>
+                        </div>
+                    `;
+              messageDiv.style.display = "block";
+
+              // Redirect to admin panel after 2 seconds
+              setTimeout(() => {
+                window.location.href = "/admin";
+              }, 2000);
+            } else {
+              messageDiv.innerHTML = `
+                        <div class="error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            ❌ Error: ${result.error || "Something went wrong"}
+                        </div>
+                    `;
+              messageDiv.style.display = "block";
+            }
+          } catch (error) {
+            messageDiv.innerHTML = `
+                    <div class="error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        ❌ Network error: ${error.message}
+                    </div>
+                `;
+            messageDiv.style.display = "block";
+          } finally {
+            // Reset button state
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+          }
+        });
+
+      // Set min dates for better UX
+      document.addEventListener("DOMContentLoaded", function () {
+        const today = new Date().toISOString().split("T")[0];
+        const mfgDateInput = document.getElementById("mfg_date");
+        const expiryDateInput = document.getElementById("expiry_date");
+
+        mfgDateInput.max = today;
+        expiryDateInput.min = today;
+
+        // Add some sample suggestions on focus
+        document
+          .getElementById("product_name")
+          .addEventListener("focus", function () {
+            if (!this.value) {
+              this.placeholder = "Try: Milk, Bread, Yogurt, Cheese, Eggs";
+            }
+          });
+
+        document
+          .getElementById("batch_id")
+          .addEventListener("focus", function () {
+            if (!this.value) {
+              this.placeholder = "Try: MILK001, BREAD2024, YOG003";
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
